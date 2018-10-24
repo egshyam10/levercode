@@ -1,0 +1,56 @@
+
+rest:
+  base-path: /api/v1
+
+spring:
+  data:
+    rest:
+      base-path: ${rest.base-path}
+server:
+  use-forward-headers: true
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      jwt:
+        keyValue: AAAAB3NzaC1yc2EAAAADAQABAAABAQCwxgqJeAz1vrQFy7WQIjNzL4MMb3kE9htWUWEQZTNTNpZJgf16uzaaGTmU734WNIPP1u3qE+3LsiYef4vrsM9WGCf4r+leUGDxlEBWQA/rAV7DBNq2ShEEqVfE9qQWw5bs5ADAAMbO2osW5g9/FSSdNdeuQ8rY3I9pZcbLixqiMNHfCWfDKfj30jok9g7GOs3oeQrjaz1K80JzqxQtrZpNVEOfa5Tiv06/EyziGK8aCYrFZa7fXiK/xcliJbamCwUO4yXG7j4NLrBO7Rjr42e4ZUC0mKC+Ey5uYqwhY2rfr2pFHXw35vZWgP9e9y2lBU2VMGUFHf/tZmBOjMfufkrX
+      scopes:
+        required: user_profile,group_userprofile
+      id: urn:federation:mycompany:stage/resources
+      token-type: Bearer
+      claims:
+        peoplekey: peoplekey
+        givenName: given_name
+        surname: sn
+        email: email
+        username: samaccount_name
+        group: group
+        avatar: http://thumbnail.example.com/<peoplekey>.jpg
+endpoints:
+  enabled: false
+  actuator:
+    enabled: true
+  health:
+    enabled: true
+  hypermedia:
+    enabled: true
+logging:
+  pattern:
+    level: DEBUG
+server.port: 9999
+logback:
+  access:
+    useServerPortInsteadOfLocalPort: true
+    tomcat:
+      enableRequestAttributes: true
+management:
+  add-application-context-header: false
+portal:
+  permission:
+    admin:
+      groups: adp.project.portal.admins
+      users: null
+      readOnly:
+        groups: adp.project.admin.readonly
+        users: null

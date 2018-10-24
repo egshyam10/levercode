@@ -1,0 +1,79 @@
+---
+
+rest:
+  base-path: /api/v1
+  
+spring:
+  application:
+    name: adp-portal-api-tracking
+  profiles:
+    active:
+    - local    
+  http:
+    multipart:
+      max-file-size: 1024KB
+      max-request-size: 1024KB
+  data:
+    rest:
+      base-path: ${rest.base-path}
+
+server:
+  use-forward-headers: true
+  compression:
+    enabled: true
+    mime-types:
+    - application/json
+    - application/hal+json
+    - application/schema+json
+    - image/jpg
+    - image/png
+  max-http-header-size: 65536
+  port: 8081
+  
+security: 
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      jwt:
+        keyValue: AAAAB3NzaC1yc2EAAAADAQABAAABAQCwxgqJeAz1vrQFy7WQIjNzL4MMb3kE9htWUWEQZTNTNpZJgf16uzaaGTmU734WNIPP1u3qE+3LsiYef4vrsM9WGCf4r+leUGDxlEBWQA/rAV7DBNq2ShEEqVfE9qQWw5bs5ADAAMbO2osW5g9/FSSdNdeuQ8rY3I9pZcbLixqiMNHfCWfDKfj30jok9g7GOs3oeQrjaz1K80JzqxQtrZpNVEOfa5Tiv06/EyziGK8aCYrFZa7fXiK/xcliJbamCwUO4yXG7j4NLrBO7Rjr42e4ZUC0mKC+Ey5uYqwhY2rfr2pFHXw35vZWgP9e9y2lBU2VMGUFHf/tZmBOjMfufkrX
+      claims:
+        peoplekey: peoplekey
+        givenName: given_name
+        surname: sn
+        email: email,uid
+        username: samaccount_name
+        group: group
+        avatar: http://thumbnail.accenture.com/<peoplekey>.jpg
+      id: urn:federation:mycompany:stage/resources
+      scopes:
+        required: user_profile,group_userprofile
+        token-type: Bearer
+
+endpoints:
+  enabled: false
+  actuator:
+    enabled: true
+  health:
+    enabled: true
+  hypermedia:
+    enabled: true
+
+portal:
+  permission:
+    admin:
+      groups: 
+      users: 
+      readOnly:
+        groups:
+        users:
+  
+logback.access:
+  useServerPortInsteadOfLocalPort: true
+  tomcat:
+    enableRequestAttributes: true
+
+management:
+  add-application-context-header: false
+  
+...
